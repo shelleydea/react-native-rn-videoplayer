@@ -27,6 +27,14 @@
 
 - (HomeIndicatorView*) getHomeIndicatorView {
     UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    if ([rootViewController isKindOfClass:UINavigationController.class]) {
+        UIViewController *firstVc = rootViewController.childViewControllers.firstObject;
+        NSAssert(
+            [firstVc isKindOfClass:[HomeIndicatorView class]],
+            @"rootViewController is not of type HomeIndicatorView as expected."
+        );
+        return (HomeIndicatorView*) firstVc;
+    }
     NSAssert(
         [rootViewController isKindOfClass:[HomeIndicatorView class]],
         @"rootViewController is not of type HomeIndicatorView as expected."
